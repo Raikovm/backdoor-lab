@@ -1,12 +1,16 @@
 import fs from "fs";
 
-export const getFilesInDirectory = async (path) => {
-    return await fs.promises.readdir(path, (err, files) => {
-        const list = [];
-        files.forEach((file) => {
-            list.push(file);
-        });
-    });
+export const getFilesInDirectory = (path) => {
+    const fileNames = fs.readdirSync(path);
+    const fileList = [];
+
+    fileNames.forEach(file =>
+        fileList.push({
+            fileName: file,
+            isDirectory: pathIsDirectory(`${path}/${file}`)
+        }));
+
+    return fileList;
 };
 
 export const removeFile = (path) => {
@@ -19,11 +23,8 @@ export const removeFile = (path) => {
     return false;
 }
 
-export const makeDirectory = (path, directory) => {
-    const dir = `${path}/${directory}`;
-    if (!fs.existsSync(dir)) {
-        fs.mkdirSync(dir, { recursive: true });
-    }
+export const pathIsDirectory = (path) => {
+    return (fs.existsSync(path) && fs.lstatSync(path).isDirectory());
 }
 
 export const fileExists = (path) =>

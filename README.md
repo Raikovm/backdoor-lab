@@ -6,7 +6,7 @@ node app.js
 ## Methods
  - GET /?path={pathToDirectory} - get files in directory
  - DELETE /?path={pathToFile} - delete file
- - GET /?path={pathToFile} - download file
+ - GET /download/?path={pathToFile} - download file
 
 # react-interface
 ## Build

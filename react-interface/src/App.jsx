@@ -1,15 +1,12 @@
-import { useState } from 'react'
+import {Backdoor} from "./components/Backdoor.jsx";
 import './App.css'
 
 const App = () => {
-  const [count, setCount] = useState(0)
-
-  return (
-    <div className="App">
-
-
-    </div>
-  )
+    return (
+      <div className="App">
+          <Backdoor/>
+      </div>
+    )
 };
 
 export default App

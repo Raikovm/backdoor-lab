@@ -1,19 +1,25 @@
-import {fileExists, getFilesInDirectory, makeDirectory, removeFile} from './fileManagment.js';
+import {fileExists, getFilesInDirectory, removeFile} from './fileManagment.js';
 import express from 'express';
+import cors from 'cors';
 
 const app = express();
+app.use(cors())
 
-app.get('/', async (req, res) => {
+app.get('/defaultPath',(req, res) => {
+    res.send({path: process.cwd()});
+});
+
+app.get('/', (req, res) => {
     const path = req.query.path
     if (!path) {
         return res.sendStatus(400);
     }
 
-    const files = await getFilesInDirectory(path);
+    const files = getFilesInDirectory(path);
     res.send(files);
 });
 
-app.delete('/', async (req, res) => {
+app.delete('/', (req, res) => {
     const path = req.query.path
     if (!path) {
         return res.sendStatus(400);
